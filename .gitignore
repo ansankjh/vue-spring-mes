@@ -1,0 +1,16 @@
+# STS/Eclipse workspace
+_workspace/
+.metadata/
+.recommenders/
+.settings/
+
+# IntelliJ
+.idea/
+*.iml
+
+# Node
+node_modules/
+dist/
+
+# Logs
+*.log

@@ -1,0 +1,46 @@
+server:
+  port: 8081  # Vue(보통 8080)와 포트 충돌 피하려고 백엔드는 8081로 추천
+  servlet:
+    encoding:
+      charset: UTF-8  # 요청/응답 기본 문자셋
+      enabled: true
+      force: true     # 강제로 UTF-8 적용
+
+spring:
+  application:
+    name: mes-backend
+
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver  # Oracle JDBC 드라이버
+    url: jdbc:oracle:thin:@//localhost:1521/ORCLPDB  # ✅ Service Name 방식(PDB로 접속)
+    username: MES  # 개발용 계정
+    password: Mes2026@  # 네가 만든 MES 비번으로 바꿔줘
+    hikari:
+      maximum-pool-size: 10  # 커넥션 풀 최대
+      minimum-idle: 2        # 유휴 커넥션 최소
+      connection-timeout: 30000  # 커넥션 얻기 타임아웃(ms)
+      idle-timeout: 600000       # 유휴 타임아웃(ms)
+      max-lifetime: 1800000      # 커넥션 생명주기(ms)
+      validation-timeout: 5000   # 검증 타임아웃(ms)
+      connection-test-query: SELECT 1 FROM DUAL  # Oracle용 커넥션 테스트 쿼리
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml  # mapper XML 위치
+  type-aliases-package: com.factory.mes.backend  # VO/DTO 패키지 맞게 필요하면 더 좁혀도 됨
+  configuration:
+    map-underscore-to-camel-case: true  # DB 컬럼 snake_case -> Java camelCase
+    jdbc-type-for-null: NULL            # NULL 처리 안정화
+
+logging:
+  level:
+    root: INFO
+    com.factory.mes.backend: DEBUG       # 너 프로젝트 패키지 로그는 디버그로
+    org.mybatis: DEBUG                   # MyBatis 동작 로그(원하면 INFO로 낮춰도 됨)
+    org.springframework.jdbc: DEBUG      # JDBC 로그(원하면 INFO로)
+  file:
+    name: logs/mes-backend.log           # 프로젝트 실행 폴더 기준 logs/ 파일 생성
+  logback:
+    rollingpolicy:
+      file-name-pattern: logs/mes-backend.%d{yyyy-MM-dd}.%i.log  # 날짜+인덱스로 롤링
+      max-file-size: 10MB                                       # 파일당 최대 크기
+      max-history: 14                                           # 보관 기간(일)
