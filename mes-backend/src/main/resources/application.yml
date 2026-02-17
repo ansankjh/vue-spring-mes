@@ -35,8 +35,7 @@ logging:
   level:
     root: INFO
     com.factory.mes.backend: DEBUG       # 너 프로젝트 패키지 로그는 디버그로
-    org.mybatis: DEBUG                   # MyBatis 동작 로그(원하면 INFO로 낮춰도 됨)
-    org.springframework.jdbc: DEBUG      # JDBC 로그(원하면 INFO로)
+    com.factory.mes.backend.mapper: DEBUG
   file:
     name: logs/mes-backend.log           # 프로젝트 실행 폴더 기준 logs/ 파일 생성
   logback:
