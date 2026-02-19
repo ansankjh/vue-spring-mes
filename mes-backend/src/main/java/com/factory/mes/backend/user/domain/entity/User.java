@@ -3,29 +3,29 @@ package com.factory.mes.backend.user.domain.entity;
 import java.util.Date;
 
 public class User {
-	  	private Long userSeq;          // USER_SEQ
-	    private String loginId;        // LOGIN_ID
-	    private String userNm;         // USER_NM
+	  	private Long userSeq;          // USER_SEQ 식별번호
+	    private String loginId;        // LOGIN_ID 로그인 아이디
+	    private String userNm;         // USER_NM 이름
 
-	    private String passwordHash;   // PASSWORD_HASH
+	    private String passwordHash;   // PASSWORD_HASH 비밀번호 해시 (*&(*&(
 
-	    private String email;          // EMAIL
-	    private String phoneNo;        // PHONE_NO
+	    private String email;          // EMAIL 사용자 이메일
+	    private String phoneNo;        // PHONE_NO 사용자 폰번호
 
-	    private String deptCd;         // DEPT_CD
-	    private String roleCd;         // ROLE_CD
+	    private String deptCd;         // DEPT_CD 부서
+	    private String roleCd;         // ROLE_CD 권한
 
-	    private String statusCd;       // STATUS_CD
-	    private Integer failCnt;       // FAIL_CNT
-	    private String lockYn;         // LOCK_YN
-	    private Date lastLoginDt;      // LAST_LOGIN_DT
+	    private String statusCd;       // STATUS_CD 퇴사 여부
+	    private Integer failCnt;       // FAIL_CNT 로그인 실패 횟수
+	    private String lockYn;         // LOCK_YN 아이디 잠김 여부 아마 로그인 실패 횟수 몇번 이상하면 잠기게 하는거
+	    private Date lastLoginDt;      // LAST_LOGIN_DT 마지막 로그인일자
 
-	    private String useYn;          // USE_YN
+	    private String useYn;          // USE_YN 아이디 사용 여부를 Y/N으로 표시 정보를 날리는게 아니라 UPDATE로 변경
 
-	    private String createdBy;      // CREATED_BY
-	    private Date createdDt;        // CREATED_DT
-	    private String updatedBy;      // UPDATED_BY
-	    private Date updatedDt;        // UPDATED_DT
+	    private String createdBy;      // CREATED_BY 이 사용자를 등록한 사람
+	    private Date createdDt;        // CREATED_DT 가입일
+	    private String updatedBy;      // UPDATED_BY 마지막으로 사용자 정보를 수정한 사람
+	    private Date updatedDt;        // UPDATED_DT 정보 변경된 시간
 
 	    // getter/setter (필요하면 Lombok으로 대체 가능)
 	    public Long getUserSeq() { return userSeq; }

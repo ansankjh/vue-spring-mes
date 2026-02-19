@@ -7,9 +7,12 @@ import org.apache.ibatis.annotations.Param;            // 파라미터 이름을
 @Mapper // MyBatis가 이 인터페이스를 Mapper로 인식하게 함
 public interface UserMapper {
 	
+	// 로그인
+	User selectUserForLogin(@Param("loginId") String loginId);
+	
 	 /**
      * loginId로 사용자 1건 조회
      * - 다음 단계에서 UserMapper.xml에 동일 id(selectByLoginId)로 SQL을 작성해야 함
      */
-    User selectByLoginId(@Param("loginId") String loginId);
+    User selectUserAuthDetails(@Param("userSeq") int loginId);
 }
