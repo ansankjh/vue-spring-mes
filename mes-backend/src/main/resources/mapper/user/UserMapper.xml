@@ -5,5 +5,51 @@
 
 <mapper namespace="com.factory.mes.backend.user.mapper.UserMapper">
 
+	<!-- 사용자 로그인 -->
+	<select id="selectUserForLogin" parameterType="String" resultType="com.factory.mes.backend.user.domain.entity.User">
+		SELECT
+			user_seq,
+			login_id,
+			user_nm,
+			password_hash,
+			email,
+			phone_no,
+			dept_cd,
+			role_cd,
+			status_cd,
+			fail_cnt,
+			lock_yn,
+			last_login_dt,
+			use_yn,
+			created_by,
+			created_dt,
+			updated_by,
+			updated_dt
+		FROM
+			MES_USER
+		WHERE
+			login_id = #{loginId}
+	</select>
+
+	<!-- loginId로 사용자 1건 조회 -->
+	<!-- UserMapper.java 메소드명과 매칭되는 SQL id -->
+	<!-- 파라미터 타입(단일 문자열) -->
+	 <!-- 결과를 매핑할 Entity(User) -->
+	<select id="selectUserAuthDetails" parameterType="int" resultType="com.factory.mes.backend.user.domain.entity.User">
+		SELECT
+			user_seq,
+			login_id,
+			user_nm,
+			dept_cd,
+			role_cd,
+			status_cd,
+			lock_yn,
+			use_yn
+	    FROM 
+	    	MES_USER
+	    WHERE 
+	    	user_seq = #{userSeq}             <!-- @Param("userSeq") 로 받은 값을 바인딩 -->
+	      	AND use_yn = 'Y'                      <!-- 사용중(Y)인 계정만 조회(고정 필터는 DB에서 거는게 효율적) -->
+	</select>
 
 </mapper>
