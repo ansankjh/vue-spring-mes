@@ -34,8 +34,6 @@ public class AuthService {
 		// LoginRequest DTO에 있는 loginId를 LoginRequset req에서 꺼내서 사용
 		User loginUser = userMapper.selectUserForLogin(req.getLoginId());
 		
-		log.debug("AuthService.java login() loginUser : " + loginUser);
-		
 		// 사용자 조회해서 없으면 아래 HTTP 응답
 		if(loginUser == null) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "아이디 또는 비밀번호가 올바르지 않습니다.");

@@ -30,6 +30,8 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req, HttpSession session) {
+    	log.debug("AuthController loginId={}, password={}", req.getLoginId(), req.getPassword());
+    	
     	// 서비스 호출해서 아이디/비밀번호 검증 + 사용자 정보 조회
     	MeResponse me = authService.login(req);
     	
