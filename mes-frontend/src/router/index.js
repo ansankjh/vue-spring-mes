@@ -3,6 +3,7 @@ import Router from 'vue-router'                // Vue Router
 
 import LoginView from '@/views/Login.vue'         // 로그인 페이지
 import MainView from '@/views/Main.vue'           // 메인 페이지
+import EquipmentDashBoardView from '@/views/EquipmentDashboard.vue'
 
 import { fetchMe} from '@/api/auth.js' // auth.js에 있는 fetchMe() 가져오기 import
 
@@ -21,11 +22,18 @@ const router = new Router({
       path: '/',                               // 메인 화면 경로
       name: 'Main',
       component: MainView,
-      meta: { requiresAuth: true }             // 로그인 필요 표시(가드에서 사용)
+     // meta: { requiresAuth: true }             // 로그인 필요 표시(가드에서 사용)
+     meta: { public: true }
     },
     {
       path: '*',                               // 없는 주소 들어오면
       redirect: '/'                            // 메인으로 보냄
+    },
+    {
+      path: '/equipment',
+      name: 'EquipmentDashBoard',
+      component: EquipmentDashBoardView,
+      meta: { public: true }
     }
   ]
 })

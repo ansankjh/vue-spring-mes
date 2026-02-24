@@ -65,10 +65,11 @@ export default {
         return;
       }
 
+      //this.$router.push("/equipment");
       // 서버 로그인 호출
       login(this.loginId, this.password)
         .then(() => {
-          this.$router.push("/"); //
+          this.$router.push("/equipment"); //
         })
         .catch((err) => {
           if (err && err.response && err.response.status === 401) {
@@ -76,9 +77,8 @@ export default {
           } else {
             this.errorMsg = "로그인 중 오류가 발생했습니다."
           }
-        });
+        });        
     }
-
   }
 }
 </script>

@@ -23,6 +23,8 @@ export function login(loginId, password) {
     password: password  // 사용자 입력 비밀번호
   };
 
+  console.log(body);
+
   return http.post("/api/auth/login", body); // 로그인 요청
 }
 
