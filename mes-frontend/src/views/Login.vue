@@ -69,7 +69,8 @@ export default {
       // 서버 로그인 호출
       login(this.loginId, this.password)
         .then(() => {
-          this.$router.push("/equipment"); //
+          localStorage.setItem('isLoggedIn', 'true');
+          this.$router.push("/"); //
         })
         .catch((err) => {
           if (err && err.response && err.response.status === 401) {

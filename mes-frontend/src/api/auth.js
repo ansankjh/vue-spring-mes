@@ -9,7 +9,15 @@ import http from "./http"; // 공통 axios 인스턴스( baseURL, withCredential
  * - 로그인 안 되어있으면 401
  */
 export function fetchMe() {
-  return http.get("/api/auth/me"); // 로그인 상태 확인/내 정보 조회
+  return http.get("/api/auth/me") // 로그인 상태 확인/내 정보 조회
+    .then(function (res) {
+      console.log('[fetchMe] OK', res.status)
+      return res
+    })
+    .catch(function (err) {
+      console.log('[fetchMe] REJECT', err && err.response ? err.response.status : err)
+      throw err
+    })
 }
 
 /**
@@ -22,8 +30,6 @@ export function login(loginId, password) {
     loginId: loginId,   // 사용자 입력 아이디
     password: password  // 사용자 입력 비밀번호
   };
-
-  console.log(body);
 
   return http.post("/api/auth/login", body); // 로그인 요청
 }

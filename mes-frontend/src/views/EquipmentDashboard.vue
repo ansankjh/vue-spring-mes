@@ -13,7 +13,7 @@
       <div class="logo">MES</div>
 
       <div class="right">
-        <span class="user">LOGIN_ID: {{ loginId }}</span>
+        <span class="user">사용자: {{ userNm }}</span>
         <button class="logout" @click="doLogout">로그아웃</button>
       </div>
     </header>
@@ -50,12 +50,19 @@
 </template>
 
 <script>
+// 로그아웃 함수 가져오기
+import { logout } from "@/api/auth";
+import { fetchMe } from "@/api/auth";
+import { setMeChecked } from "@/router/index";
+
 // Vue2 옵션 API
 export default {
+
   name: "EquipmentDashboardView",
 
   data: function () {
     return {
+      userNm: "",
       loginId: "", // 저장된 로그인 아이디 표시용
       // 상태코드 -> UI(라벨/클래스) 매핑 (if/else 대신 테이블로 관리)
       STATUS_UI: {
@@ -85,7 +92,10 @@ export default {
   },
 
   created: function () {
-    this.loginId = localStorage.getItem('MES_LOGIN_ID') || '' // 로컬스토리지에서 가져오기
+    const loginInfo = this
+    fetchMe().then((res) => {
+      loginInfo.userNm = res.data.userNm;
+    })
   },
 
   computed: {
@@ -114,9 +124,21 @@ export default {
   methods: {
     // ====== (추가) Main.vue에서 쓰던 로그아웃 로직 ======
     doLogout: function () {
-      localStorage.removeItem("MES_LOGIN"); // 로그인 상태 제거
-      localStorage.removeItem("MES_LOGIN_ID"); // 아이디 제거
-      this.$router.push("/login"); // 로그인 화면으로 이동
+      logout()
+        .then(() => {
+          console.log("로그아웃 완료");
+          //this.$router.push("/login");
+        })
+        .catch((err) => {
+          if(err) {
+            console.log("서버 응답 에러 발생했지만, 로컬데이터는 삭제합니다.");
+          }
+        })
+        .finally(() => {
+          localStorage.setItem('isLoggedIn', 'false');
+          setMeChecked(false);
+          this.$router.push("/login");
+        })
     },
 
     // status -> UI 정보 반환
