@@ -10,8 +10,67 @@
 <template>
   <div class="page">
     <header class="top">
+      <div class="header-left">
       <div class="logo">MES</div>
-
+      <nav class="nav">
+        <div class="nav-item">
+          <span class="nav-link">시스템 관리</span>
+          <div class="dropdown">
+            <a href="#">사용자 관리</a>
+            <a href="#">권한 설정</a>
+            <a href="#">코드 관리</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">생산 관리</span>
+          <div class="dropdown">
+            <a href="#">생산 계획</a>
+            <a href="#">작업 지시</a>
+            <a href="#">실적 집계</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">공정 관리</span>
+          <div class="dropdown">
+            <a href="#">공정 흐름도</a>
+            <a href="#">설비 가동현황</a>
+            <a href="#">불량 분석</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">품질 관리</span>
+          <div class="dropdown">
+            <a href="#">공정 흐름도</a>
+            <a href="#">설비 가동현황</a>
+            <a href="#">불량 분석</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">재고 관리</span>
+          <div class="dropdown">
+            <a href="#">공정 흐름도</a>
+            <a href="#">설비 가동현황</a>
+            <a href="#">불량 분석</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">설비 관리</span>
+          <div class="dropdown">
+            <a href="#">공정 흐름도</a>
+            <a href="#">설비 가동현황</a>
+            <a href="#">불량 분석</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">실적 관리</span>
+          <div class="dropdown">
+            <a href="#">공정 흐름도</a>
+            <a href="#">설비 가동현황</a>
+            <a href="#">불량 분석</a>
+          </div>
+        </div>
+      </nav>
+    </div>
       <div class="right">
         <span class="user">사용자: {{ userNm }}</span>
         <button class="logout" @click="doLogout">로그아웃</button>
@@ -189,8 +248,82 @@ export default {
 </script>
 
 <style scoped>
-.top { height: 56px; background: #111827; color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
-.logo { font-weight: bold; }
+.top { height: 56px; 
+  background: #111827; 
+  color: white; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 0 16px; 
+  position: relative;
+  z-index: 100; /* 드롭다운이 컨텐츠 위로 오도록 */ 
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* 로고와 메뉴 사이 간격 */
+}
+.logo { font-weight: bold; font-size: 20px; color: #3b82f6; }
+.nav {
+  display: flex;
+  gap: 20px;
+  height: 56px;
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #3b82f6;
+}
+
+/* (추가) 드롭다운 스타일 */
+.dropdown {
+  display: none; /* 평소에는 숨김 */
+  position: absolute;
+  top: 56px; /* 헤더 높이만큼 아래로 */
+  left: 0;
+  background-color: #ffffff;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+.dropdown a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown a:last-child { border-bottom: none; }
+
+.dropdown a:hover {
+  background-color: #f3f4f6;
+  color: #3b82f6;
+}
+
+/* 마우스 올리면 드롭다운 표시 */
+.nav-item:hover .dropdown {
+  display: block;
+}
 .right { display: flex; align-items: center; gap: 12px; }
 .user { font-size: 13px; opacity: .9; }
 .logout { padding: 8px 10px; border: 0; border-radius: 8px; cursor: pointer; }
