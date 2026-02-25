@@ -30,8 +30,6 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req, HttpSession session) {
-    	log.debug("AuthController loginId={}, password={}", req.getLoginId(), req.getPassword());
-    	
     	// 서비스 호출해서 아이디/비밀번호 검증 + 사용자 정보 조회
     	MeResponse me = authService.login(req);
     	
@@ -59,6 +57,7 @@ public class AuthController {
     	}
     	
     	int userSeq = ((Number) userSeqObj).intValue(); // 세션 값(Object)을 문자열 LoginId로 변환
+    	
     	MeResponse me = authService.getUserContext(userSeq); // 서비스에 "LoginId의 내 정보" 조회를 위임 걍 authService에 있는 getMe 호출
     	
     	if(me == null) { // DB에 사용자가 없거나(useYn=N 등) 정책상 조회 불가일 수 있음

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.factory.mes.backend.equipment.mapper.EquipmentMapper">
+
+	<!-- 설비리스트 + 현재상태 조회 
+		- MES_EQUIPMENT : 설비 마스터
+		- MES_EQUIP_STATUS : 설비 현재상태(설비당 1행)
+		- 상태가 없는 설비도 리스트에 보여야 해서 LEFT JOIN 사용
+	-->
+	<select id="selectEquipmentList" resultType="com.factory.mes.backend.equipment.domain.dto.EquipmentListItemResponse">
+		SELECT
+			e.EQUIP_SEQ     AS equipSeq
+	      , e.EQUIP_CD      AS equipCd
+	      , e.EQUIP_NM      AS equipNm
+	      , e.LINE_CD       AS lineCd
+	      , e.PROCESS_CD    AS processCd
+	      , e.AREA_CD       AS areaCd
+	      , e.USE_YN        AS useYn
+	
+	      , s.STATUS_CD     AS statusCd
+	      , s.REASON_CD     AS reasonCd
+	      , s.LAST_EVENT_DT AS lastEventDt
+	      , s.HEARTBEAT_DT  AS heartbeatDt
+		FROM
+			MES_EQUIPMENT e
+		LEFT JOIN
+			MES_EQUIP_STATUS s
+		ON
+			s.EQUIP_SEQ = e.EQUIP_SEQ
+		WHERE
+			1=1
+			AND e.USE_YN = 'Y'
+		<!-- 라인코드 선택 유무 -->
+		<if test="lineCd != null and lineCd !=''">
+			AND e.LINE_CD = #{lineCd}
+		</if>
+		<!-- 프로세스 코드 선택 유무 -->
+		<if test="processCd != null and processCd != ''">
+			AND e.PROCESS_CD = #{processCd}
+		</if>
+		<!-- 키워드나 검색 입력 유무 -->
+		<if test="keyword != null and keyword != ''">
+			AND (
+					e.EQUIP_CD LIKE '%' || #{keyword} || '%'
+				OR  e.EQUIP_NM LIKE '%' || #{keyword} || '%'
+			)
+		</if>
+		ORDER BY
+			e.EQUIP_CD
+	</select>
+</mapper>

@@ -83,6 +83,9 @@ public class AuthService {
 		res.setUserSeq(user.getUserSeq());
         res.setLoginId(user.getLoginId());
         res.setUserNm(user.getUserNm());
+        res.setEmail(user.getEmail());
+        res.setPhoneNo(user.getPhoneNo());
+        res.setLastLoginDt(user.getLastLoginDt());
         res.setDeptCd(user.getDeptCd());
         res.setRoleCd(user.getRoleCd());
         res.setStatusCd(user.getStatusCd());
